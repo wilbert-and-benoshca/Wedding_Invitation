@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Control Panel | Wilbert & Benoshca</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-main-section { border: var(--border-silver); border-radius: 10px; margin-bottom: 0.8rem; background: #FFFFFF; overflow: hidden; }
+    .admin-sec-header { padding: 0.8rem 1rem; background: #F8FAFC; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E2E8F0; }
+    .admin-sec-header h3 { font-size: 0.92rem; color: var(--primary); margin: 0; }
+    .admin-sec-body { padding: 0.8rem 0.5rem; }
+    .stat-card { background: #F8FAFC; border: var(--border-silver); border-radius: 8px; padding: 0.5rem 0.3rem; text-align: center; }
+    .stat-card.warning { background: #FEF2F2; border-color: #FCA5A5; }
+    .stat-num { display: block; font-size: 1.3rem; font-weight: 700; color: var(--primary); font-family: var(--font-heading); }
+    .stat-card.warning .stat-num { color: #DC2626; }
+    .stat-lbl { font-size: 0.65rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+    .admin-grid-2col { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem; }
+  </style>
+</head>
+<body style="background: var(--bg-cream);">
+
+  <!-- Sticky Top Bar to return to main page -->
+  <div class="sticky-nav-bar">
+    <a href="index.html" class="back-btn">← Back to Invitation</a>
+    <span class="gallery-title-header">Admin Control</span>
+  </div>
+
+  <main class="main-content">
+    <div class="card" style="padding: 1.2rem; text-align: left;">
+      <h2 class="font-heading" style="color: var(--primary); text-align: center; margin-bottom: 0.5rem;">Admin Control Panel</h2>
+
+      <!-- Passcode Form -->
+      <div id="admin-auth" style="max-width: 350px; margin: 2rem auto; text-align: center;">
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">Enter PIN code to access controls:</p>
+        
+        <div style="position: relative; margin-bottom: 1rem;">
+          <input type="password" id="admin-pin" placeholder="Enter PIN" style="width: 100%; box-sizing: border-box; padding: 0.75rem; text-align: center; font-size: 1.1rem; border-radius: 8px; border: 1px solid #CBD5E1; outline: none;" />
+        </div>
+
+        <button type="button" onclick="loginAdmin()" class="btn btn-primary" style="width: 100%; margin: 0;">Access Panel</button>
+        <div id="auth-status" style="margin-top: 1rem; color: #DC2626; font-weight: 600; font-size: 0.85rem;"></div>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div id="admin-dashboard" style="display: none; margin-top: 1rem;">
+        
+        <!-- SECTION 1: STATS -->
+        <div class="admin-main-section">
+          <div onclick="toggleMainSection('sec-stats')" class="admin-sec-header">
+            <h3>📊 Portal Statistics</h3>
+            <span id="sec-stats-arrow">▼</span>
+          </div>
+          <div id="sec-stats" class="admin-sec-body" style="display: none;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 0.5rem; margin-bottom: 1rem;">
+              <div class="stat-card"><span class="stat-num" id="st-wishes">0</span><span class="stat-lbl">💌 Total RSVPs/Wishes</span></div>
+              <div class="stat-card"><span class="stat-num" id="st-files">0</span><span class="stat-lbl">📤 Live Photos</span></div>
+              <div class="stat-card warning"><span class="stat-num" id="st-puploads">0</span><span class="stat-lbl">⏳ Pending Photos</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: PHOTO MODERATION -->
+        <div class="admin-main-section">
+          <div onclick="toggleMainSection('sec-uploads')" class="admin-sec-header">
+            <h3>📸 Moderate Uploaded Photos</h3>
+            <span id="sec-uploads-arrow">▼</span>
+          </div>
+          <div id="sec-uploads" class="admin-sec-body" style="display: block;">
+            <div id="mod-uploads-list">Loading uploads...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="config.js"></script>
+  <script>
+    let adminToken = "";
+
+    function toggleMainSection(secId) {
+      const el = document.getElementById(secId);
+      const arrow = document.getElementById(secId + '-arrow');
+      const isOpen = el.style.display === 'block';
+      el.style.display = isOpen ? 'none' : 'block';
+      if (arrow) arrow.innerText = isOpen ? '▼' : '▲';
+    }
+
+    async function loginAdmin() {
+      const pin = document.getElementById('admin-pin').value.trim();
+      const status = document.getElementById('auth-status');
+      status.style.color = "var(--primary)";
+      status.innerText = "Verifying PIN...";
+
+      try {
+        const response = await fetch(CONFIG.API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "verifyAdmin",
+            pin: pin
+          })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          adminToken = pin;
+          document.getElementById('admin-auth').style.display = "none";
+          document.getElementById('admin-dashboard').style.display = "block";
+          loadAdminData();
+        } else {
+          status.style.color = "#DC2626";
+          status.innerText = result.message || "Incorrect PIN";
+        }
+      } catch (err) {
+        status.style.color = "#DC2626";
+        status.innerText = "Connection error. Check API URL.";
+      }
+    }
+
+    async function loadAdminData() {
+      try {
+        const response = await fetch(CONFIG.API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "getAdminData",
+            pin: adminToken
+          })
+        });
+        const res = await response.json();
+
+        if (!res.success) return;
+
+        if (res.stats) {
+          document.getElementById('st-wishes').innerText = res.stats.totalGuests || 0;
+          document.getElementById('st-files').innerText = res.stats.approvedFiles || 0;
+          document.getElementById('st-puploads').innerText = res.stats.pendingUploads || 0;
+        }
+
+        renderAdminUploads(res.groupedUploads || []);
+      } catch (err) {
+        alert("Error loading moderation: " + err.toString());
+      }
+    }
+
+    function renderAdminUploads(groups) {
+      const container = document.getElementById('mod-uploads-list');
+      if (groups.length === 0) {
+        container.innerHTML = "<p style='color:var(--text-muted); text-align:center;'>No media uploaded yet.</p>";
+        return;
+      }
+
+      let html = "<div class='admin-grid-2col'>";
+      groups.forEach(group => {
+        group.files.forEach(file => {
+          html += `
+            <div style="border: var(--border-silver); border-radius: 6px; padding: 0.4rem; text-align: center; background: #FFF;">
+              <img src="${file.url}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px;" loading="lazy">
+              <div style="font-size: 0.65rem; color: var(--text-muted); margin: 0.3rem 0;">${group.uploader}</div>
+              <button onclick="toggleMediaApproval(${file.row}, ${!file.approved})" style="background:${file.approved ? '#D97706' : '#16A34A'}; color:#FFF; border:none; padding: 0.25rem 0.5rem; border-radius:4px; font-size:0.65rem; cursor:pointer; width:100%;">
+                ${file.approved ? 'Take Down' : 'Approve'}
+              </button>
+            </div>
+          `;
+        });
+      });
+      html += "</div>";
+      container.innerHTML = html;
+    }
+
+    async function toggleMediaApproval(row, newStatus) {
+      await fetch(CONFIG.API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "toggleApproval",
+          pin: adminToken,
+          sheetName: "Uploads",
+          row: row,
+          status: newStatus
+        })
+      });
+      loadAdminData();
+    }
+  </script>
+</body>
+</html>
