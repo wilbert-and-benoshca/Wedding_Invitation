@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Wilbert & Benoshca's Wedding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="particles-layer"></div>
+
+  <main class="main-content">
+
+    <!-- 1. HERO INVITATION CARD -->
+    <section class="invitation-card hero-card">
+      <!-- Watermark Monogram Background -->
+      <div class="watermark-bg"></div>
+
+      <p class="bible-verse">
+        "SO THEY ARE NO LONGER TWO, BUT ONE. THEREFORE WHAT GOD HAS JOINED TOGETHER, LET MAN NOT SEPARATE."<br>
+        <strong>- MATTHEW 19:6</strong>
+      </p>
+
+      <h1 class="couple-names">Wilbert & Benoshca</h1>
+
+      <p class="invitation-subtext">
+        Request the Honour of your Presence as we celebrate the Holy Sacrament of Matrimony
+      </p>
+
+      <div class="date-banner">
+        <span class="month-year">SATURDAY</span>
+        <span class="day-num">05</span>
+        <span class="month-year">DEC 2026</span>
+      </div>
+
+      <div class="countdown-container">
+        <div class="time-box"><div class="num" id="days">0</div><div class="label">Days</div></div>
+        <div class="time-box"><div class="num" id="hours">0</div><div class="label">Hours</div></div>
+        <div class="time-box"><div class="num" id="mins">0</div><div class="label">Minutes</div></div>
+        <div class="time-box"><div class="num" id="secs">0</div><div class="label">Seconds</div></div>
+      </div>
+    </section>
+
+    <!-- 2. CEREMONY & RECEPTION VENUES -->
+    <section class="grid-2">
+      <div class="card venue-card">
+        <div class="card-content">
+          <h3>Church Ceremony</h3>
+          <p><strong>Time:</strong> 3:30 PM</p>
+          <p><strong>Venue:</strong> Our Lady of Consolation of the Persecuted Church</p>
+          <p><strong>Address:</strong> Tropa Vaddo, Sodiem, Siolim, Bardez, Goa 403517</p>
+          <a href="https://maps.google.com/?q=Our+Lady+of+Consolation+of+the+Persecuted+Church+Siolim" target="_blank" class="btn">Get Directions</a>
+        </div>
+      </div>
+
+      <div class="card venue-card">
+        <div class="card-content">
+          <h3>Reception</h3>
+          <p><strong>Time:</strong> 7:00 PM Sharp</p>
+          <p><strong>Venue:</strong> Silver Bells</p>
+          <p><strong>Address:</strong> Off the Highway, Sangolda, Bardez, Goa 403511</p>
+          <a href="https://maps.google.com/?q=Silver+Bells+Sangolda+Goa" target="_blank" class="btn">Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PHOTO ALBUM LINK CARD -->
+    <section class="card album-link-card">
+      <div class="album-content">
+        <h2>Wedding Photo Album</h2>
+        <p>Explore all the photos and memories captured during our celebration.</p>
+        <a href="gallery.html" class="btn btn-album">View Photo Album 📷</a>
+      </div>
+    </section>
+
+    <!-- 4. SHARE PHOTOS & VIDEOS CARD -->
+    <section class="card upload-card">
+      <h2>Share Photos & Videos</h2>
+      <p class="section-desc">Upload your favorite memories from the celebration for our album!</p>
+      
+      <form id="upload-form" onsubmit="handleUpload(event)">
+        <div class="form-group">
+          <label>Your Name / Family Name:</label>
+          <input type="text" id="uploader-name" placeholder="e.g. Cardoso Family" required>
+        </div>
+
+        <div class="upload-dropzone" onclick="document.getElementById('file-input').click()">
+          <span class="camera-icon">📷</span>
+          <p><strong>Tap to choose photos or open camera</strong></p>
+          <span class="file-hint">Select up to 20 files (Max 500 MB)</span>
+          <input type="file" id="file-input" multiple accept="image/*,video/*" style="display:none" onchange="updateFileCount(this)">
+          <div id="file-selection-label"></div>
+        </div>
+
+        <button type="submit" id="upload-btn" class="btn btn-primary">Upload Memories</button>
+        <div id="upload-status" class="status-msg"></div>
+      </form>
+    </section>
+
+    <!-- 5. WISHES & BLESSINGS FORM (PRIVATE TO SHEET) -->
+    <section class="card wishes-card">
+      <h2>Wishes & Blessings</h2>
+      <p class="section-desc">Leave your blessings and RSVP directly for Wilbert & Benoshca!</p>
+
+      <form id="wish-form" onsubmit="handleWishSubmit(event)">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="wish-name" placeholder="What's your name?" required>
+        </div>
+
+        <div class="form-group">
+          <label>Will you be attending?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="Yes, I will be there!" checked>
+              <span>Yes, I will be there!</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="Sorry, I can't make it.">
+              <span>Sorry, I can't make it.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Any message to the groom or bride?</label>
+          <textarea id="wish-message" rows="4" placeholder="Write your wishes or blessings here..."></textarea>
+        </div>
+
+        <button type="submit" id="wish-btn" class="btn btn-primary">Submit 💌</button>
+        <div id="wish-status" class="status-msg"></div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 6. FOOTER WITH DISCREET ADMIN LINK -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <h3>Wilbert & Benoshca</h3>
+          <p>Thank you for celebrating the Holy Sacrament of Matrimony with us.</p>
+        </div>
+        <div>
+          <h4>Wedding Details</h4>
+          <p>🗓️ Saturday, December 05, 2026</p>
+          <p>⛪ Church: 3:30 PM</p>
+          <p>🥂 Reception: 7:00 PM Sharp</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>📞 +91 95183 64511</p>
+          <p>✉️ wilbertcardoso229@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Wilbert & Benoshca. All Rights Reserved.</p>
+        <a href="admin.html" class="admin-lock-btn" title="Admin Access">🔒</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
