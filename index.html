@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Wilbert & Benoshca | Wedding Celebration</title>
-  
-  <!-- Fonts -->
+  <title>Wilbert & Benoshca's Wedding</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -20,32 +20,33 @@
   <!-- Screen Loader -->
   <div id="page-loader"><div class="spinner"></div></div>
 
-  <!-- Welcome Splash Screen Overlay (Confetti Celebration) -->
+  <!-- Welcome Splash Overlay -->
   <div id="splash-overlay" style="display: none;">
     <div class="splash-card">
-      <img id="splash-img" src="" alt="Welcome Celebration" class="splash-image" />
+      <img id="splash-img" src="" alt="Welcome" class="splash-image" />
     </div>
   </div>
 
-  <!-- Dynamic Falling Particles Layer -->
+  <!-- Falling Particles Layer -->
   <div id="falling-particles-layer"></div>
 
+  <!-- Main Content Flow (No Top Navbar) -->
   <main class="main-content">
 
     <!-- 1. HERO INVITATION CARD -->
-    <section class="invitation-card hero-card">
-      <!-- Watermark Monogram Background -->
-      <div class="card-bg-watermark logo-watermark"></div>
+    <div class="invitation-card">
+      <!-- Monogram Watermark Centered in Background -->
+      <div class="logo-center-watermark"></div>
 
-      <!-- Floral Corner Decors -->
-      <img id="corner-top-left" src="" class="corner-decor-topleft" alt="" />
-      <img id="corner-bottom-right" src="" class="corner-decor-bottomright" alt="" />
+      <!-- Corner Floral Decors -->
+      <img id="corner-top-left" src="" class="corner-decor-topleft" alt="Floral Corner" referrerpolicy="no-referrer" />
+      <img id="corner-bottom-right" src="" class="corner-decor-bottomright" alt="Floral Corner" referrerpolicy="no-referrer" />
 
       <p class="bible-verse" id="verse-text"></p>
 
-      <!-- Featured Couple Circular Photo Frame -->
-      <div id="couple-photo-container" class="couple-photo-wrapper" style="display:none;">
-        <img id="couple-photo-img" src="" alt="Wilbert & Benoshca" class="couple-photo" />
+      <!-- Featured Couple Photo Frame (Toggleable in config.js) -->
+      <div id="couple-photo-container" class="couple-photo-wrapper" style="display: none;">
+        <img id="couple-photo-img" src="" alt="Wilbert & Benoshca" class="couple-photo" referrerpolicy="no-referrer" />
       </div>
 
       <!-- Calligraphic Headline Names -->
@@ -71,12 +72,12 @@
         <div class="time-box"><div class="num" id="mins">0</div><div class="label">Minutes</div></div>
         <div class="time-box"><div class="num" id="secs">0</div><div class="label">Seconds</div></div>
       </div>
-    </section>
+    </div>
 
-    <!-- 2. CHURCH CEREMONY & RECEPTION VENUES -->
-    <section class="grid-2">
-      <div class="card card-venue">
-        <div class="card-bg-watermark venue-watermark" id="church-watermark"></div>
+    <!-- 2. CEREMONY & RECEPTION VENUES -->
+    <div class="grid-2">
+      <div class="card card-church-bg">
+        <img id="church-bg-img" class="card-bg-watermark" alt="" referrerpolicy="no-referrer" />
         <div class="card-content-inner">
           <h3>Church Ceremony</h3>
           <p><strong>Time:</strong> <span id="church-time"></span></p>
@@ -86,8 +87,8 @@
         </div>
       </div>
 
-      <div class="card card-venue">
-        <div class="card-bg-watermark venue-watermark" id="reception-watermark"></div>
+      <div class="card card-venue-bg">
+        <img id="reception-bg-img" class="card-bg-watermark" alt="" referrerpolicy="no-referrer" />
         <div class="card-content-inner">
           <h3>Reception</h3>
           <p><strong>Time:</strong> <span id="reception-time"></span></p>
@@ -96,56 +97,57 @@
           <a id="reception-map-btn" href="#" target="_blank" class="btn">Get Directions</a>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- 3. WEDDING PHOTO ALBUM CALLOUT CARD -->
-    <section class="card album-callout-card">
-      <div class="card-content-inner" style="text-align: center;">
-        <h2 class="font-heading" style="color: var(--primary); margin-bottom: 0.5rem;">Wedding Photo Album</h2>
+    <div class="card album-card-banner">
+      <div class="card-content-inner">
+        <h2 class="font-heading" style="color: var(--primary); margin-bottom: 0.4rem;">Wedding Photo Album</h2>
         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem;">
-          View photos, videos, and memories shared during our wedding celebration!
+          Relive all the photos and memories shared during our wedding celebration!
         </p>
-        <a href="gallery.html" class="btn btn-gold">Browse Wedding Album 📷</a>
+        <a href="gallery.html" class="btn" style="padding: 0.85rem 2.2rem; font-size: 1rem;">View Photo Album 📷</a>
       </div>
-    </section>
+    </div>
 
-    <!-- 4. SHARE PHOTOS & VIDEOS UPLOAD CARD -->
-    <section class="card upload-card">
-      <h2 class="font-heading" style="color: var(--primary); text-align: center; margin-bottom: 0.4rem;">Share Photos & Videos</h2>
-      <p style="color: var(--text-muted); text-align: center; font-size: 0.88rem; margin-bottom: 1.5rem;">
-        Upload your favorite moments from our celebration to our shared album!
-      </p>
+    <!-- 4. SHARE PHOTOS & VIDEOS CARD -->
+    <div class="card form-card">
+      <div class="card-content-inner">
+        <h2 class="font-heading" style="color: var(--primary); text-align: center; margin-bottom: 0.4rem;">Share Photos & Videos</h2>
+        <p style="color: var(--text-muted); text-align: center; font-size: 0.88rem; margin-bottom: 1.5rem;">
+          Upload your photos and videos from the wedding celebrations!
+        </p>
 
-      <form id="upload-form" onsubmit="handleUploadSubmit(event)" style="max-width: 580px; margin: 0 auto;">
-        <div class="form-group">
-          <label>Your Name / Family Name:</label>
-          <input type="text" id="uploader-name" placeholder="Enter your name" required />
-        </div>
+        <form id="upload-form" onsubmit="handleUploadSubmit(event)" style="max-width: 550px; margin: 0 auto;">
+          <div class="form-group">
+            <label>Your Name / Family Name:</label>
+            <input type="text" id="uploader-name" placeholder="Enter Your Name" required />
+          </div>
 
-        <div class="upload-dropzone" onclick="document.getElementById('file-input').click()">
-          <span class="camera-icon">📷</span>
-          <p style="font-weight: 600; color: var(--primary); margin: 0.3rem 0;">Tap to choose photos or open camera</p>
-          <p style="font-size: 0.78rem; color: var(--text-muted);">Limits: Select up to 20 files (Max 500 MB)</p>
-          <input type="file" id="file-input" multiple accept="image/*,video/*" style="display:none;" onchange="handleFileSelection(this)" />
-          <div id="file-selection-preview"></div>
-        </div>
+          <div class="upload-dropzone" onclick="document.getElementById('file-input').click()">
+            <span style="font-size: 2.2rem; display: block;">📷</span>
+            <p style="font-weight: 600; color: var(--primary); margin: 0.3rem 0;">Tap to choose photos or open camera</p>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Limits: Select up to 20 files (Max 500 MB)</p>
+            <input type="file" id="file-input" multiple accept="image/*,video/*" style="display:none;" onchange="handleFileSelection(this)" />
+            <div id="file-selection-preview" style="font-weight: 600; color: var(--primary); margin-top: 0.5rem;"></div>
+          </div>
 
-        <button type="submit" id="upload-btn" class="btn btn-full">Upload Memories</button>
-        <div id="upload-status" class="status-msg"></div>
-      </form>
-    </section>
+          <button type="submit" id="upload-btn" class="btn" style="width: 100%; margin-top: 0.5rem;">Upload Memories</button>
+          <div id="upload-status" style="text-align: center; font-weight: 600; font-size: 0.85rem; margin-top: 0.6rem;"></div>
+        </form>
+      </div>
+    </div>
 
     <!-- 5. WISHES & BLESSINGS RSVP CARD (PRIVATE TO SHEET) -->
-    <section class="card wishes-card">
-      <h2 class="font-heading" style="color: var(--primary); text-align: center; margin-bottom: 0.4rem;">Wishes & Blessings</h2>
-      <p style="color: var(--text-muted); text-align: center; font-size: 0.88rem; margin-bottom: 1.5rem;">
-        Leave your warm wishes and prayers for Wilbert & Benoshca!
-      </p>
+    <div class="card form-card">
+      <div class="card-content-inner">
+        <h2 class="font-heading" style="color: var(--primary); text-align: center; margin-bottom: 0.4rem;">Wishes & Blessings</h2>
+        <p style="color: var(--text-muted); text-align: center; font-size: 0.88rem; margin-bottom: 1.5rem;">
+          Leave your warm wishes and RSVP directly for Wilbert & Benoshca!
+        </p>
 
-      <div style="max-width: 580px; margin: 0 auto; background: #F8FAFC; padding: 1.5rem; border-radius: 12px; border: var(--border-silver);">
-        <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 1rem; font-family: var(--font-heading);">✍️ Send a Blessing & RSVP</h3>
-        
-        <form id="wish-form" onsubmit="handleWishSubmit(event)">
+        <form id="wish-form" onsubmit="handleWishSubmit(event)" style="max-width: 550px; margin: 0 auto; background: #F8FAFC; padding: 1.5rem; border-radius: 12px; border: var(--border-silver);">
+          
           <div class="form-group">
             <label>Name</label>
             <input type="text" id="wish-name" placeholder="What's your name?" required />
@@ -153,12 +155,12 @@
 
           <div class="form-group">
             <label>Will you be attending?</label>
-            <div class="radio-selection-group">
-              <label class="radio-pill">
+            <div class="rsvp-options">
+              <label class="rsvp-label">
                 <input type="radio" name="attending" value="Yes, I will be there!" checked />
                 <span>Yes, I will be there!</span>
               </label>
-              <label class="radio-pill">
+              <label class="rsvp-label">
                 <input type="radio" name="attending" value="Sorry, I can't make it." />
                 <span>Sorry, I can't make it.</span>
               </label>
@@ -170,15 +172,15 @@
             <textarea id="wish-message" rows="4" placeholder="Write your wishes or blessings here..."></textarea>
           </div>
 
-          <button type="submit" id="wish-btn" class="btn btn-full" style="margin-top: 0.8rem;">Submit Blessing 💌</button>
-          <div id="wish-status" class="status-msg"></div>
+          <button type="submit" id="wish-btn" class="btn" style="width: 100%; margin-top: 0.5rem;">Submit 💌</button>
+          <div id="wish-status" style="text-align: center; font-weight: 600; font-size: 0.85rem; margin-top: 0.6rem;"></div>
         </form>
       </div>
-    </section>
+    </div>
 
   </main>
 
-  <!-- 6. RICH THEMED FOOTER WITH DISCREET ADMIN LINK -->
+  <!-- 6. FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-grid">
@@ -190,20 +192,20 @@
         <div>
           <h4>Wedding Details</h4>
           <p>📅 Saturday, December 05, 2026</p>
-          <p>⛪ Church: 3:30 PM</p>
-          <p>🥂 Reception: 7:00 PM Sharp</p>
+          <p>⏰ Church: 3:30 PM</p>
+          <p>⏰ Reception: 7:00 PM Sharp</p>
         </div>
 
         <div>
           <h4>Contact</h4>
-          <p>📞 <a href="tel:+919518364511" style="color:rgba(255,255,255,0.85); text-decoration:none;">+91 95183 64511</a></p>
-          <p>✉️ <a href="mailto:wilbertcardoso229@gmail.com" style="color:rgba(255,255,255,0.85); text-decoration:none;">wilbertcardoso229@gmail.com</a></p>
+          <p>📞 <a href="tel:+919518364511">+91 95183 64511</a></p>
+          <p>✉️ <a href="mailto:wilbertcardoso229@gmail.com">wilbertcardoso229@gmail.com</a></p>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p>&copy; 2026 Wilbert & Benoshca. All Rights Reserved.</p>
-        <a href="admin.html" class="admin-lock-btn" title="Admin Access">🔒</a>
+        <a href="admin.html" title="Admin Access" style="text-decoration: none; opacity: 0.5; font-size: 1.1rem;">🔒</a>
       </div>
     </div>
   </footer>
