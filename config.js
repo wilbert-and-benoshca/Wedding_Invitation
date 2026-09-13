@@ -1,5 +1,5 @@
 const CONFIG = {
-  // Paste your Apps Script Web App Deployment URL here
+  // Paste your Apps Script Web App Deployment URL here 
   API_URL: "https://script.google.com/macros/s/AKfycbxibqA6rUmKxoZKumraWKrnlIkH9RyGGh2nW5-OHFfDa0CMN7nZzJm0--KViyjAunIi/exec",
   
   COUPLE: {
