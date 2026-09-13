@@ -1,0 +1,369 @@
+:root {
+  --primary: #173F73;
+  --secondary: #D4AF37;
+  --bg-cream: #FAF8F5;
+  --card-bg: #FFFFFF;
+  --text-dark: #1E293B;
+  --text-muted: #64748B;
+  --border-silver: 1px solid rgba(192, 192, 192, 0.4);
+  --font-heading: 'Cinzel', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-cream);
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.main-content {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+/* CARDS */
+.card, .invitation-card {
+  background: var(--card-bg);
+  border: var(--border-silver);
+  border-radius: 16px;
+  padding: 2.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(23, 63, 115, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1. HERO INVITATION CARD */
+.hero-card {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+}
+
+.watermark-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('logo.png'); /* Put logo.png in the same folder */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 380px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.bible-verse {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.2rem;
+}
+
+.couple-names {
+  font-family: var(--font-script);
+  font-size: 4.2rem;
+  color: var(--primary);
+  font-weight: normal;
+  margin: 0.5rem 0;
+}
+
+.invitation-subtext {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+}
+
+.date-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.7rem 2rem;
+  border-top: var(--border-silver);
+  border-bottom: var(--border-silver);
+  margin-bottom: 1.8rem;
+}
+
+.date-banner .month-year {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.date-banner .day-num {
+  font-size: 2.2rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.time-box {
+  background: var(--card-bg);
+  border: var(--border-silver);
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 75px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.time-box .num {
+  font-size: 1.8rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.time-box .label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* 2. VENUE GRID */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.venue-card h3 {
+  color: var(--primary);
+  font-family: var(--font-heading);
+  margin-bottom: 0.6rem;
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.6rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary, .btn {
+  background: var(--primary);
+  color: #FFF;
+  margin-top: 1rem;
+}
+
+.btn-album {
+  background: linear-gradient(135deg, #173F73 0%, #1E4E8C 100%);
+  color: #FFF;
+  font-size: 1.05rem;
+  padding: 0.85rem 2.2rem;
+}
+
+/* 3. ALBUM CARD */
+.album-link-card {
+  text-align: center;
+  background: linear-gradient(135deg, #FFF 0%, #F8FAFC 100%);
+}
+
+.album-link-card h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 0.4rem;
+}
+
+/* 4 & 5. UPLOAD & WISHES FORMS */
+.upload-card h2, .wishes-card h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+.section-desc {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-dark);
+}
+
+.form-group input[type="text"], .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.upload-dropzone {
+  border: 2px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  background: #F8FAFC;
+  margin-bottom: 1rem;
+}
+
+.upload-dropzone:hover {
+  border-color: var(--primary);
+}
+
+.camera-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.file-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.status-msg {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+}
+
+/* STICKY NAV FOR GALLERY */
+.sticky-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #FFFFFF;
+  border-bottom: var(--border-silver);
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.back-btn {
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  background: #F1F5F9;
+}
+
+.gallery-title-header {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  background: #FFF;
+  border-radius: 10px;
+  overflow: hidden;
+  border: var(--border-silver);
+}
+
+.gallery-item img, .gallery-item video {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-meta {
+  padding: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--primary);
+  color: #FFF;
+  padding: 3rem 1.5rem 1.5rem;
+  margin-top: 3rem;
+}
+
+.footer-container { max-width: 900px; margin: 0 auto; }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.footer h3 { color: #FFF; margin-bottom: 0.6rem; font-family: var(--font-heading); }
+.footer h4 { color: #CBD5E1; margin-bottom: 0.6rem; }
+.footer p { color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.2rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.admin-lock-btn {
+  text-decoration: none;
+  opacity: 0.5;
+  font-size: 1.1rem;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .couple-names { font-size: 3rem; }
+  .countdown-container { gap: 0.5rem; }
+  .time-box { min-width: 60px; padding: 0.6rem 0.3rem; }
+  .time-box .num { font-size: 1.4rem; }
+  .watermark-bg { background-size: 260px; }
+}
