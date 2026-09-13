@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Album | Wilbert & Benoshca</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gallery-body">
+
+  <!-- STICKY BACK TO MAIN BUTTON (ALWAYS VISIBLE WHILE SCROLLING) -->
+  <div class="sticky-nav-bar">
+    <a href="index.html" class="back-btn">← Back to Invitation</a>
+    <span class="gallery-title-header">Wilbert & Benoshca's Album</span>
+  </div>
+
+  <main class="main-content gallery-container">
+    <div class="card gallery-header-card">
+      <h2>Celebration Moments</h2>
+      <p>Photos shared by our family, friends, and well-wishers.</p>
+    </div>
+
+    <div id="gallery-grid" class="gallery-grid">
+      <div class="loading-state">Loading gallery memories...</div>
+    </div>
+  </main>
+
+  <script src="config.js"></script>
+  <script>
+    async function loadGallery() {
+      const grid = document.getElementById('gallery-grid');
+      try {
+        const response = await fetch(`${CONFIG.API_URL}?action=getGallery`);
+        const data = await response.json();
+
+        if (!data.items || data.items.length === 0) {
+          grid.innerHTML = `<p class="empty-state">No photos in the album yet. Share the first one from the main page!</p>`;
+          return;
+        }
+
+        grid.innerHTML = data.items.map(item => `
+          <div class="gallery-item">
+            ${item.mimeType.includes('video') 
+              ? `<video src="${item.url}" controls></video>` 
+              : `<img src="${item.url}" alt="Memory" loading="lazy">`}
+            <div class="gallery-meta">
+              <span>${item.uploader}</span>
+              <span>${item.date}</span>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        grid.innerHTML = `<p class="empty-state">Unable to load gallery photos. Please try refreshing.</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadGallery);
+  </script>
+</body>
+</html>
