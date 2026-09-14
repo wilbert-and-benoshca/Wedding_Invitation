@@ -8,160 +8,137 @@ function dismissLoader() {
   }
 }
 
-// Welcome Splash with Confetti (Plays once per visit)
-function handleWelcomeSplash() {
-  const splash = document.getElementById('splash-overlay');
-  const splashImg = document.getElementById('splash-img');
-  
-  if (CONFIG.IMAGES.splashImageUrl) {
-    splashImg.src = CONFIG.IMAGES.splashImageUrl;
-  }
-
-  if (!sessionStorage.getItem('hasSeenSplash')) {
-    splash.style.display = 'flex';
-
-    try {
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 }, zIndex: 10001 });
-      }
-    } catch(e) {}
-
-    sessionStorage.setItem('hasSeenSplash', 'true');
-
-    setTimeout(() => {
-      splash.style.opacity = '0';
-      setTimeout(() => { splash.style.display = 'none'; }, 600);
-    }, 3500);
-  }
-}
-
-// Live Countdown
+// Fixed Countdown Timer (Robust parsing)
 function initCountdown() {
-  const targetTime = new Date(CONFIG.WEDDING.countdownDate).getTime();
+  const targetDateStr = (typeof CONFIG !== 'undefined' && CONFIG.WEDDING && CONFIG.WEDDING.countdownDate) 
+    ? CONFIG.WEDDING.countdownDate 
+    : "2026-12-05T15:30:00";
+    
+  const targetTime = new Date(targetDateStr).getTime();
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minsEl = document.getElementById('mins');
   const secsEl = document.getElementById('secs');
 
-  function update() {
-    const diff = targetTime - new Date().getTime();
-    if (diff <= 0) return;
+  if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-    daysEl.innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-    hoursEl.innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    minsEl.innerText = Math.floor((diff / 1000 / 60) % 60);
-    secsEl.innerText = Math.floor((diff / 1000) % 60);
+  function update() {
+    const now = new Date().getTime();
+    const diff = targetTime - now;
+
+    if (diff <= 0) {
+      daysEl.innerText = "0";
+      hoursEl.innerText = "0";
+      minsEl.innerText = "0";
+      secsEl.innerText = "0";
+      return;
+    }
+
+    const sec = 1000;
+    const min = sec * 60;
+    const hr = min * 60;
+    const day = hr * 24;
+
+    daysEl.innerText = Math.floor(diff / day);
+    hoursEl.innerText = Math.floor((diff % day) / hr);
+    minsEl.innerText = Math.floor((diff % hr) / min);
+    secsEl.innerText = Math.floor((diff % min) / sec);
   }
 
   update();
   setInterval(update, 1000);
 }
 
-// Populate Content from Config
-function populateCardDetails() {
-  document.getElementById('verse-text').innerHTML = CONFIG.WEDDING.verse;
-  document.getElementById('corner-top-left').src = CONFIG.IMAGES.corner1Url;
-  document.getElementById('corner-bottom-right').src = CONFIG.IMAGES.corner2Url;
+// Populate Images and Details from CONFIG
+function populateDetails() {
+  if (typeof CONFIG === 'undefined') return;
 
-  if (CONFIG.IMAGES.showCouplePhoto && CONFIG.IMAGES.couplePhotoUrl) {
-    document.getElementById('couple-photo-img').src = CONFIG.IMAGES.couplePhotoUrl;
-    document.getElementById('couple-photo-container').style.display = 'flex';
+  // Corner decors
+  const cTop = document.getElementById('corner-top-left');
+  const cBottom = document.getElementById('corner-bottom-right');
+  if (cTop && CONFIG.IMAGES && CONFIG.IMAGES.corner1Url) cTop.src = CONFIG.IMAGES.corner1Url;
+  if (cBottom && CONFIG.IMAGES && CONFIG.IMAGES.corner2Url) cBottom.src = CONFIG.IMAGES.corner2Url;
+
+  // Church Watermark & Details
+  const chImg = document.getElementById('church-bg-img');
+  if (chImg && CONFIG.IMAGES && CONFIG.IMAGES.churchBgUrl) chImg.src = CONFIG.IMAGES.churchBgUrl;
+  if (CONFIG.WEDDING) {
+    const cTime = document.getElementById('church-time');
+    const cVenue = document.getElementById('church-venue');
+    const cAddr = document.getElementById('church-address');
+    const cMap = document.getElementById('church-map-btn');
+    if (cTime && CONFIG.WEDDING.time) cTime.innerText = CONFIG.WEDDING.time;
+    if (cVenue && CONFIG.WEDDING.venue) cVenue.innerText = CONFIG.WEDDING.venue;
+    if (cAddr && CONFIG.WEDDING.address) cAddr.innerText = CONFIG.WEDDING.address;
+    if (cMap && CONFIG.WEDDING.mapUrl) cMap.href = CONFIG.WEDDING.mapUrl;
   }
 
-  // Church
-  document.getElementById('church-time').innerText = CONFIG.WEDDING.time;
-  document.getElementById('church-venue').innerText = CONFIG.WEDDING.venue;
-  document.getElementById('church-address').innerText = CONFIG.WEDDING.address;
-  document.getElementById('church-map-btn').href = CONFIG.WEDDING.mapUrl;
-  document.getElementById('church-watermark').style.backgroundImage = `url('${CONFIG.IMAGES.churchBgUrl}')`;
-
-  // Reception
-  document.getElementById('reception-time').innerText = CONFIG.RECEPTION.time;
-  document.getElementById('reception-venue').innerText = CONFIG.RECEPTION.venue;
-  document.getElementById('reception-address').innerText = CONFIG.RECEPTION.address;
-  document.getElementById('reception-map-btn').href = CONFIG.RECEPTION.mapUrl;
-  document.getElementById('reception-watermark').style.backgroundImage = `url('${CONFIG.IMAGES.venueBgUrl}')`;
+  // Reception Watermark & Details
+  const recImg = document.getElementById('reception-bg-img');
+  if (recImg && CONFIG.IMAGES && CONFIG.IMAGES.venueBgUrl) recImg.src = CONFIG.IMAGES.venueBgUrl;
+  if (CONFIG.RECEPTION) {
+    const rTime = document.getElementById('reception-time');
+    const rVenue = document.getElementById('reception-venue');
+    const rAddr = document.getElementById('reception-address');
+    const rMap = document.getElementById('reception-map-btn');
+    if (rTime && CONFIG.RECEPTION.time) rTime.innerText = CONFIG.RECEPTION.time;
+    if (rVenue && CONFIG.RECEPTION.venue) rVenue.innerText = CONFIG.RECEPTION.venue;
+    if (rAddr && CONFIG.RECEPTION.address) rAddr.innerText = CONFIG.RECEPTION.address;
+    if (rMap && CONFIG.RECEPTION.mapUrl) rMap.href = CONFIG.RECEPTION.mapUrl;
+  }
 }
 
-// Falling Particles Engine with Oscillating Sway
-async function initParticleEngine() {
+// Falling Particles Engine with Oscillating Drift
+function initParticleEngine() {
   particleTimers.forEach(t => clearInterval(t));
   particleTimers = [];
 
-  let config = {
-    opacity: 30, speed: 8, sway: 35,
-    particles: {
-      heart: { desktop: 30, mobile: 6, enabled: true },
-      star: { desktop: 5, mobile: 1, enabled: true },
-      sparkle: { desktop: 5, mobile: 1, enabled: true },
-      snowflake: { desktop: 5, mobile: 1, enabled: true },
-      ring: { desktop: 3, mobile: 1, enabled: true },
-      rose: { desktop: 3, mobile: 1, enabled: true },
-      gift: { desktop: 3, mobile: 1, enabled: true },
-      bell: { desktop: 2, mobile: 1, enabled: true }
-    }
-  };
-
-  try {
-    const res = await fetch(`${CONFIG.API_URL}?action=getParticleConfig`);
-    const remoteConfig = await res.json();
-    if (remoteConfig && remoteConfig.particles) config = remoteConfig;
-  } catch(e) {}
-
   const isMobile = window.innerWidth <= 768;
-  const opacity = (config.opacity || 30) / 100;
-  const baseSpeed = config.speed || 8;
-  const masterSway = config.sway || 35;
-
   const container = document.getElementById('falling-particles-layer');
-  const icons = {
-    heart: '❤️', star: '⭐', sparkle: '✨', snowflake: '❄️',
-    ring: '💍', rose: '🌹', gift: '🎁', bell: '🔔'
-  };
+  if (!container) return;
 
-  Object.keys(config.particles).forEach(key => {
-    const pData = config.particles[key];
-    if (pData.enabled === false) return;
+  const particles = [
+    { icon: '❤️', rate: isMobile ? 6 : 24 },
+    { icon: '⭐', rate: isMobile ? 2 : 6 },
+    { icon: '✨', rate: isMobile ? 2 : 6 },
+    { icon: '❄️', rate: isMobile ? 2 : 6 },
+    { icon: '💍', rate: isMobile ? 1 : 4 },
+    { icon: '🌹', rate: isMobile ? 1 : 4 }
+  ];
 
-    const rate = isMobile ? (pData.mobile || 0) : (pData.desktop || 0);
-    if (rate <= 0 || !icons[key]) return;
-
-    const intervalMs = (60 / rate) * 1000;
-    spawnParticle(container, icons[key], opacity, baseSpeed, masterSway);
-
-    const timer = setInterval(() => {
-      spawnParticle(container, icons[key], opacity, baseSpeed, masterSway);
-    }, intervalMs);
-
+  particles.forEach(p => {
+    const intervalMs = (60 / p.rate) * 1000;
+    spawnSingleParticle(container, p.icon);
+    const timer = setInterval(() => spawnSingleParticle(container, p.icon), intervalMs);
     particleTimers.push(timer);
   });
 }
 
-function spawnParticle(container, icon, opacity, baseSpeed, swayPx) {
+function spawnSingleParticle(container, icon) {
   const p = document.createElement('div');
   p.className = 'falling-particle-item';
   p.innerText = icon;
 
   const startX = Math.random() * 95;
-  const size = Math.floor(Math.random() * 10) + 16;
-  const duration = baseSpeed * (0.8 + Math.random() * 0.4);
-  const direction = Math.random() > 0.5 ? 1 : -1;
+  const size = Math.floor(Math.random() * 8) + 16;
+  const duration = 7 + Math.random() * 5;
+  const sway = (Math.random() > 0.5 ? 1 : -1) * (25 + Math.random() * 20);
 
-  p.style.setProperty('--sway-dist', `${swayPx * direction}px`);
-  p.style.setProperty('--p-op', opacity);
+  p.style.setProperty('--sway-dist', `${sway}px`);
+  p.style.setProperty('--p-op', '0.35');
   p.style.left = `${startX}vw`;
   p.style.fontSize = `${size}px`;
   p.style.animationDuration = `${duration}s`;
 
   container.appendChild(p);
-  setTimeout(() => { if (p.parentNode) p.parentNode.removeChild(p); }, duration * 1000 + 500);
+  setTimeout(() => { if (p.parentNode) p.parentNode.removeChild(p); }, duration * 1000 + 400);
 }
 
-// File Selection Label
+// File Selection Preview
 function handleFileSelection(input) {
   const preview = document.getElementById('file-selection-preview');
-  if (input.files.length > 0) {
-    preview.innerHTML = `<p style="font-weight:600; color:var(--primary); margin-top:0.5rem;">Selected ${input.files.length} file(s)</p>`;
+  if (preview && input.files.length > 0) {
+    preview.innerText = `Selected ${input.files.length} file(s)`;
   }
 }
 
@@ -174,7 +151,7 @@ async function handleUploadSubmit(e) {
   const btn = document.getElementById('upload-btn');
 
   if (files.length === 0) {
-    alert("Please choose photos or videos to upload.");
+    alert("Please select at least one photo or video.");
     return;
   }
 
@@ -198,17 +175,19 @@ async function handleUploadSubmit(e) {
           }
         })
       });
-    } catch(err) {}
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   status.style.color = "#16A34A";
-  status.innerText = "Thank you! All memories uploaded successfully.";
+  status.innerText = "All memories uploaded successfully! Thank you!";
   document.getElementById('upload-form').reset();
-  document.getElementById('file-selection-preview').innerHTML = "";
+  document.getElementById('file-selection-preview').innerText = '';
   btn.disabled = false;
 }
 
-// Private Wish Submission (Direct to Sheet)
+// Wish Submission (Logs privately to Sheet)
 async function handleWishSubmit(e) {
   e.preventDefault();
   const status = document.getElementById('wish-status');
@@ -220,7 +199,7 @@ async function handleWishSubmit(e) {
 
   btn.disabled = true;
   status.style.color = "var(--primary)";
-  status.innerText = "Recording your blessing...";
+  status.innerText = "Submitting blessing...";
 
   try {
     const res = await fetch(CONFIG.API_URL, {
@@ -234,15 +213,15 @@ async function handleWishSubmit(e) {
 
     if (result.success) {
       status.style.color = "#16A34A";
-      status.innerText = "Thank you! Your blessings have been received.";
+      status.innerText = "Thank you! Your wish and RSVP have been received.";
       document.getElementById('wish-form').reset();
     } else {
       status.style.color = "#DC2626";
       status.innerText = result.message || "Failed to submit.";
     }
-  } catch(err) {
+  } catch (err) {
     status.style.color = "#DC2626";
-    status.innerText = "Submission error. Please try again.";
+    status.innerText = "Connection error. Please try again.";
   } finally {
     btn.disabled = false;
   }
@@ -257,11 +236,9 @@ function readFileAsBase64(file) {
   });
 }
 
-// Initialization
 document.addEventListener('DOMContentLoaded', () => {
   dismissLoader();
-  populateCardDetails();
+  populateDetails();
   initCountdown();
-  handleWelcomeSplash();
   initParticleEngine();
 });
