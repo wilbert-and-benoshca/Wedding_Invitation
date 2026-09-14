@@ -1,7 +1,7 @@
 const CONFIG = {
   // Paste your Apps Script Web App Deployment URL here 
   API_URL: "https://script.google.com/macros/s/AKfycbxibqA6rUmKxoZKumraWKrnlIkH9RyGGh2nW5-OHFfDa0CMN7nZzJm0--KViyjAunIi/exec",
-  
+
   COUPLE: {
     groom: "Wilbert",
     bride: "Benoshca"
@@ -9,7 +9,8 @@ const CONFIG = {
 
   WEDDING: {
     date: "December 5, 2026",
-    countdownDate: "December 5, 2026 15:30:00",
+    // ISO format ensures cross-browser countdown compatibility
+    countdownDate: "2026-12-05T15:30:00",
     time: "3:30 PM",
     venue: "Our Lady of Consolation of the Persecuted Church",
     address: "Tropa Vaddo, Sodiem, Siolim, Bardez, Goa 403517",
@@ -21,7 +22,7 @@ const CONFIG = {
     time: "7:00 PM Sharp",
     venue: "Silver Bells",
     address: "Off the Highway, Sangolda, Bardez, Goa 403511",
-    mapUrl: "https://maps.google.com/?q=Silver+Bells+Sangolda+Goa"
+    mapUrl: "https://maps.google.com/?q=Silver+Bells+Sangolda"
   },
 
   CONTACT: {
@@ -30,14 +31,11 @@ const CONFIG = {
   },
 
   IMAGES: {
-    // You can also put images in your GitHub repo and use "corner1.png", "logo.png", etc.
-    logoUrl: "logo.png", 
-    corner1Url: "https://drive.google.com/thumbnail?id=1Y-E_z3H5K8B4j7w_123456&sz=w500",
-    corner2Url: "https://drive.google.com/thumbnail?id=1Y-E_z3H5K8B4j7w_123456&sz=w500",
-    couplePhotoUrl: "https://drive.google.com/thumbnail?id=1P_couple_photo_id&sz=w600",
-    showCouplePhoto: false, // Set to true to show the circular portrait ring
-    churchBgUrl: "https://images.unsplash.com/photo-1548625361-195fe578ae1b?w=800",
-    venueBgUrl: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
-    splashImageUrl: "https://drive.google.com/thumbnail?id=1splash_banner_id&sz=w800"
+    logoUrl: "logo.png",
+    // Replace with your preferred corner floral image URLs if needed
+    corner1Url: "https://images.unsplash.com/photo-1533616688419-b7a585564566?w=400&auto=format&fit=crop&q=80",
+    corner2Url: "https://images.unsplash.com/photo-1533616688419-b7a585564566?w=400&auto=format&fit=crop&q=80",
+    churchBgUrl: "https://images.unsplash.com/photo-1548625361-195fe578ae1b?w=800&auto=format&fit=crop&q=80",
+    venueBgUrl: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&auto=format&fit=crop&q=80"
   }
 };
