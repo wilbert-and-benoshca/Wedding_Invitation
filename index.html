@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wilbert & Benoshca's Wedding</title>
 
-  <!-- Google  Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Canvas Confetti CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <link rel="stylesheet" href="style.css">
 </head>
@@ -20,17 +17,9 @@
   <!-- Screen Loader -->
   <div id="page-loader"><div class="spinner"></div></div>
 
-  <!-- Welcome Splash Overlay -->
-  <div id="splash-overlay" style="display: none;">
-    <div class="splash-card">
-      <img id="splash-img" src="" alt="Welcome" class="splash-image" />
-    </div>
-  </div>
-
   <!-- Falling Particles Layer -->
   <div id="falling-particles-layer"></div>
 
-  <!-- Main Content Flow (No Top Navbar) -->
   <main class="main-content">
 
     <!-- 1. HERO INVITATION CARD -->
@@ -39,15 +28,12 @@
       <div class="logo-center-watermark"></div>
 
       <!-- Corner Floral Decors -->
-      <img id="corner-top-left" src="" class="corner-decor-topleft" alt="Floral Corner" referrerpolicy="no-referrer" />
-      <img id="corner-bottom-right" src="" class="corner-decor-bottomright" alt="Floral Corner" referrerpolicy="no-referrer" />
+      <img id="corner-top-left" src="" class="corner-decor-topleft" alt="" />
+      <img id="corner-bottom-right" src="" class="corner-decor-bottomright" alt="" />
 
-      <p class="bible-verse" id="verse-text"></p>
-
-      <!-- Featured Couple Photo Frame (Toggleable in config.js) -->
-      <div id="couple-photo-container" class="couple-photo-wrapper" style="display: none;">
-        <img id="couple-photo-img" src="" alt="Wilbert & Benoshca" class="couple-photo" referrerpolicy="no-referrer" />
-      </div>
+      <p class="bible-verse">
+        "SO THEY ARE NO LONGER TWO, BUT ONE. THEREFORE WHAT GOD HAS JOINED TOGETHER, LET MAN NOT SEPARATE." - MATTHEW 19:6
+      </p>
 
       <!-- Calligraphic Headline Names -->
       <h1 class="couple-names-headline">
@@ -77,24 +63,24 @@
     <!-- 2. CEREMONY & RECEPTION VENUES -->
     <div class="grid-2">
       <div class="card card-church-bg">
-        <img id="church-bg-img" class="card-bg-watermark" alt="" referrerpolicy="no-referrer" />
+        <img id="church-bg-img" class="card-bg-watermark" alt="" />
         <div class="card-content-inner">
           <h3>Church Ceremony</h3>
-          <p><strong>Time:</strong> <span id="church-time"></span></p>
-          <p><strong>Venue:</strong> <span id="church-venue"></span></p>
-          <p><strong>Address:</strong> <span id="church-address"></span></p>
-          <a id="church-map-btn" href="#" target="_blank" class="btn">Get Directions</a>
+          <p><strong>Time:</strong> <span id="church-time">3:30 PM</span></p>
+          <p><strong>Venue:</strong> <span id="church-venue">Our Lady of Consolation of the Persecuted Church</span></p>
+          <p><strong>Address:</strong> <span id="church-address">Tropa Vaddo, Sodiem, Siolim, Bardez, Goa 403517</span></p>
+          <a id="church-map-btn" href="https://maps.google.com/?q=Our+Lady+of+Consolation+of+the+Persecuted+Church+Siolim" target="_blank" class="btn">Get Directions</a>
         </div>
       </div>
 
       <div class="card card-venue-bg">
-        <img id="reception-bg-img" class="card-bg-watermark" alt="" referrerpolicy="no-referrer" />
+        <img id="reception-bg-img" class="card-bg-watermark" alt="" />
         <div class="card-content-inner">
           <h3>Reception</h3>
-          <p><strong>Time:</strong> <span id="reception-time"></span></p>
-          <p><strong>Venue:</strong> <span id="reception-venue"></span></p>
-          <p><strong>Address:</strong> <span id="reception-address"></span></p>
-          <a id="reception-map-btn" href="#" target="_blank" class="btn">Get Directions</a>
+          <p><strong>Time:</strong> <span id="reception-time">7:00 PM Sharp</span></p>
+          <p><strong>Venue:</strong> <span id="reception-venue">Silver Bells</span></p>
+          <p><strong>Address:</strong> <span id="reception-address">Off the Highway, Sangolda, Bardez, Goa 403511</span></p>
+          <a id="reception-map-btn" href="https://maps.google.com/?q=Silver+Bells+Sangolda" target="_blank" class="btn">Get Directions</a>
         </div>
       </div>
     </div>
